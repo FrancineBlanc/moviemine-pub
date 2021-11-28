@@ -1,0 +1,77 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.6'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.asciidoctor.convert' version '1.5.8'
+	id 'java'
+}
+
+group = 'com.movieminers'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+	set('testcontainersVersion', "1.16.0")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+//	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+	implementation 'com.github.javafaker:javafaker:1.0.2'
+
+	compileOnly 'org.projectlombok:lombok'
+
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'org.postgresql:postgresql'
+
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:postgresql'
+
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+	}
+}
+
+bootRun {
+	systemProperty 'spring.profiles.active', 'dev'
+}
+
+test {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	dependsOn test
+}
