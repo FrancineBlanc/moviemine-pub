@@ -143,6 +143,6 @@ Resources we found helpful and would like to give credit to:
 
 This project was a lot of fun to create and we hope you enjoy using it as much as we enjoyed making it!
 
-N.B. For a full commit history, please get in touch with any one of the collaborators on this project.
+N.B. For a full commit history, please get in touch with any one of the collaborators on this project, [Francine](https://github.com/FrancineBlanc), [Lauren](https://github.com/adashtra), [Nejla](https://github.com/nejlalowe), or [Patrick](https://github.com/pchan2).
 
 
